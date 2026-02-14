@@ -211,7 +211,6 @@ cust_id.to_csv("disc_cust_id", index=False)
 
 # GÖREV 6: Tüm süreci fonksiyonlaştırınız.
 
-
 def create_rfm(dataframe):
     dataframe["order_num_total_ever"] = dataframe["order_num_total_ever_online"] + dataframe["order_num_total_ever_offline"]
     dataframe["customer_value_total_ever"] = dataframe["customer_value_total_ever_online"] + dataframe["customer_value_total_ever_offline"]
