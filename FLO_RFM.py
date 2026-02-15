@@ -121,7 +121,7 @@ pre_rfm(df)
 ##Adım 1: Recency, Frequencyve Monetarytanımlarını yapınız
 df["last_order_date"].max()
 ##2021-05-30
-today_date = dt.datetime(2025, 6, 2)
+today_date = dt.datetime(2021, 6, 2)
 
 # Adım 2: Müşteri özelinde Recency, Frequency ve Monetarymetriklerini hesaplayınız.
 df.groupby("master_id").agg({'last_order_date' : lambda last_order_date : (today_date - last_order_date.max()).days,
@@ -196,7 +196,7 @@ rfm[["segment", 'recency', 'frequency', 'monetary']].groupby('segment').agg("mea
 
 target_seg_cust_id = rfm[rfm["segment"].isin(["champions","loyal_customers"])]["customer_id"]
 cust_id = df[(df["master_id"].isin(target_seg_cust_id)) & (df["interested_in_categories_12"].str.contains("KADIN"))]["master_id"]
-cust_id.to_csv("yeni_marka_müşteri_id", index=False)
+cust_id.to_csv("yeni_marka_müşteri_id_v2", index=False)
 
 
 # b. Erkek ve Çoçuk ürünlerinde %40'a yakın indirim planlanmaktadır. Bu indirimle ilgili kategorilerle ilgilenen geçmişte iyi müşteri olan ama uzun süredir
@@ -207,7 +207,7 @@ rfm["segment"].unique()
 
 target_disc_seg_cust_id = rfm[rfm["segment"].isin(["cant_loose", "hibernating", "new_customers"])]["customer_id"]
 disc_cust_ids = df[(df["master_id"].isin(target_disc_seg_cust_id)) & ((df["interested_in_categories_12"].str.contains("ERKEK")) | (df["interested_in_categories_12"].str.contains("COCUK")))]["master_id"]
-cust_id.to_csv("disc_cust_id", index=False)
+cust_id.to_csv("disc_cust_id_v2", index=False)
 
 # GÖREV 6: Tüm süreci fonksiyonlaştırınız.
 
