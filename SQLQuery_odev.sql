@@ -1,4 +1,4 @@
---1. SORU (veriyi import flat file yoluyla aldım, ID ekledim)
+--1. SORU (veriyi import flat file yoluyla aldÃ½m, ID ekledim)
 ALTER TABLE FLO
 ADD ID INT IDENTITY(1,1) PRIMARY KEY
 
@@ -55,7 +55,7 @@ FROM FLO
 GROUP BY last_order_channel
 
 
---9. SORU Son 12 ayda en çok ilgi gören kategoriyi getiren sorguyu yazınız.
+--9. SORU Son 12 ayda en Ã§ok ilgi gÃ¶ren kategoriyi getiren sorguyu yazÃ½nÃ½z.
 
 SELECT DISTINCT interested_in_categories_12 FROM FLO
 
@@ -72,7 +72,7 @@ ORDER BY interest_count DESC
 
 
 
---10. SORU En çok tercih edilen store_type bilgisini getiren sorguyu yazınız
+--10. SORU En Ã§ok tercih edilen store_type bilgisini getiren sorguyu yazÃ½nÃ½z
 
 SELECT store_type FROM FLO
 
@@ -85,9 +85,8 @@ GROUP BY value
 ORDER BY interest_count DESC
 
 
---11. SORU En son alışveriş yapılan kanal (last_order_channel) bazında, en çok ilgi gören kategoriyi ve bu kategoriden ne kadarlık alışveriş yapıldığını getiren sorguyu yazınız.
+--11. SORU En son alÃ½Ã¾veriÃ¾ yapÃ½lan kanal (last_order_channel) bazÃ½nda, en Ã§ok ilgi gÃ¶ren kategoriyi ve bu kategoriden ne kadarlÃ½k alÃ½Ã¾veriÃ¾ yapÃ½ldÃ½Ã°Ã½nÃ½ getiren sorguyu yazÃ½nÃ½z.
 
---BENİM
 SELECT last_order_channel, TRIM(value) AS category,
 	COUNT(*) AS interest_count, 
 	SUM(customer_value_total_ever_offline + customer_value_total_ever_online) TOTALSALE
@@ -96,11 +95,11 @@ CROSS APPLY string_split(
        REPLACE(REPLACE(REPLACE(interested_in_categories_12,'[',''),']',''),' ','')
        ,',')
 	   WHERE value <> ''
-GROUP BY last_0369*order_channel, value
+GROUP BY last_order_channel, value
 ORDER BY last_order_channel, interest_count DESC
 
 
---12. SORU En çok alışveriş yapan kişinin ID’ sini getiren sorguyu yazınız.
+--12. SORU En Ã§ok alÃ½Ã¾veriÃ¾ yapan kiÃ¾inin IDâ€™ sini getiren sorguyu yazÃ½nÃ½z.
 SELECT * FROM FLO
 
 SELECT TOP 1 master_id, SUM(customer_value_total_ever_offline + customer_value_total_ever_online) TOTALSALE
@@ -109,7 +108,7 @@ GROUP BY master_id
 ORDER BY TOTALSALE DESC
 
 
---13. SORU  En çok alışveriş yapan kişinin alışveriş başına ortalama cirosunu ve alışveriş yapma gün ortalamasını (alışveriş sıklığını) getiren sorguyu yazınız.
+--13. SORU  En Ã§ok alÃ½Ã¾veriÃ¾ yapan kiÃ¾inin alÃ½Ã¾veriÃ¾ baÃ¾Ã½na ortalama cirosunu ve alÃ½Ã¾veriÃ¾ yapma gÃ¼n ortalamasÃ½nÃ½ (alÃ½Ã¾veriÃ¾ sÃ½klÃ½Ã°Ã½nÃ½) getiren sorguyu yazÃ½nÃ½z.
 
 SELECT TOP 1
 	master_id,
@@ -122,7 +121,7 @@ FROM FLO
 ORDER BY order_num_total_ever_offline + order_num_total_ever_online DESC
 
 
---14. SORU  En çok alışveriş yapan (ciro bazında) ilk 100 kişinin alışveriş yapma gün ortalamasını (alışveriş sıklığını) getiren sorguyu yazınız
+--14. SORU  En Ã§ok alÃ½Ã¾veriÃ¾ yapan (ciro bazÃ½nda) ilk 100 kiÃ¾inin alÃ½Ã¾veriÃ¾ yapma gÃ¼n ortalamasÃ½nÃ½ (alÃ½Ã¾veriÃ¾ sÃ½klÃ½Ã°Ã½nÃ½) getiren sorguyu yazÃ½nÃ½z
 
 SELECT AVG(CAST(DATEDIFF(DAY, first_order_date, last_order_date) AS FLOAT) 
            / NULLIF(total_orders - 1, 0)) AS avg_freq
@@ -136,7 +135,7 @@ FROM (
 ) temp
 
 
---15. SORU En son alışveriş yapılan kanal (last_order_channel) kırılımında en çok alışveriş yapan müşteriyi getiren sorguyu yazınız.
+--15. SORU En son alÃ½Ã¾veriÃ¾ yapÃ½lan kanal (last_order_channel) kÃ½rÃ½lÃ½mÃ½nda en Ã§ok alÃ½Ã¾veriÃ¾ yapan mÃ¼Ã¾teriyi getiren sorguyu yazÃ½nÃ½z.
 
 SELECT
     last_order_channel,
@@ -151,7 +150,7 @@ WHERE (order_num_total_ever_online + order_num_total_ever_offline) =
 )
 
 
---16. SORU  En son alışveriş yapan kişinin ID’ sini getiren sorguyu yazınız. (Max son tarihte birden fazla alışveriş yapan ID bulunmakta. Bunları da getiriniz.)
+--16. SORU  En son alÃ½Ã¾veriÃ¾ yapan kiÃ¾inin IDâ€™ sini getiren sorguyu yazÃ½nÃ½z. (Max son tarihte birden fazla alÃ½Ã¾veriÃ¾ yapan ID bulunmakta. BunlarÃ½ da getiriniz.)
 
 --1.
 SELECT TOP 1 WITH TIES
